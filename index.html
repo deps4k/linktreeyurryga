@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkTree yurryga</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/WhatsApp-Image-2025-12-23-at-09.03.36.jpeg">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/WhatsApp-Image-2025-12-23-at-09.03.36.jpeg">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/WhatsApp-Image-2025-12-23-at-09.03.36.jpeg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background animated elements */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(160, 174, 192, 0.15);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+            background: linear-gradient(135deg, rgba(160, 174, 192, 0.2), rgba(113, 128, 150, 0.15));
+            animation: float 10s infinite linear;
+        }
+
+        .element-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -80px;
+            left: -80px;
+            background: linear-gradient(135deg, rgba(113, 128, 150, 0.15), rgba(74, 85, 104, 0.2));
+            animation: float 8s infinite linear reverse;
+        }
+
+        .element-3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 10%;
+            background: linear-gradient(135deg, rgba(160, 174, 192, 0.15), rgba(203, 213, 224, 0.2));
+            animation: float 6s infinite linear;
+        }
+
+        .element-4 {
+            width: 100px;
+            height: 100px;
+            bottom: 30%;
+            right: 15%;
+            background: linear-gradient(135deg, rgba(113, 128, 150, 0.15), rgba(160, 174, 192, 0.2));
+            animation: float 7s infinite linear reverse;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(60px, 60px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(0, 120px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(-60px, 60px) rotate(270deg);
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: rgba(160, 174, 192, 0.25);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Glassmorphism effect */
+        .glass-container {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-gray-gradient {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+        }
+
+        .medium-gray-gradient {
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+        }
+
+        .gray-gradient {
+            background: linear-gradient(135deg, #4a5568, #718096);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #4a5568, #718096);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(74, 85, 104, 0.2), transparent);
+            margin: 40px 0;
+        }
+
+        .badge {
+            background: linear-gradient(90deg, #4a5568, #718096);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a0aec0, #718096);
+            border-radius: 10px;
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #718096, #a0aec0);
+            color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.7s;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .icon-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #48bb78;
+            display: inline-block;
+            margin-right: 5px;
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 6px rgba(72, 187, 120, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
+            }
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 640px) {
+            .container-padding {
+                padding: 1rem;
+            }
+
+            .profile-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .header-text {
+                font-size: 1.25rem;
+            }
+
+            .link-card {
+                padding: 0.75rem;
+            }
+
+            .icon-container {
+                width: 2.5rem;
+                height: 2.5rem;
+                margin-right: 0.75rem;
+            }
+
+            .social-icons {
+                gap: 1rem;
+            }
+
+            .social-icon {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 768px) {
+            .container-padding {
+                padding: 1.5rem;
+            }
+
+            .profile-image {
+                width: 96px;
+                height: 96px;
+            }
+        }
+
+        /* WhatsApp card */
+.whatsapp-card {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* TikTok card */
+.tiktok-card {
+    background: linear-gradient(135deg, #000000, #333333);
+    color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tiktok-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff0050, #00f2ea);
+    border-radius: 14px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tiktok-card:hover::before {
+    opacity: 1;
+}
+
+/* Lynk.id card */
+.lynk-card {
+    background: linear-gradient(135deg, #00C853, #009624);
+    color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Instagram card */
+.instagram-card {
+    background: linear-gradient(135deg, #833AB4, #C13584, #E1306C, #FD1D1D);
+    color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.link-card {
+    /* background: linear-gradient(135deg, #718096, #a0aec0); */ /* Hapus ini */
+    color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4">
+    <!-- Background animated elements -->
+    <div class="bg-element element-1"></div>
+    <div class="bg-element element-2"></div>
+    <div class="bg-element element-3"></div>
+    <div class="bg-element element-4"></div>
+
+    <div class="w-full max-w-4xl mx-auto">
+        <!-- Container Utama -->
+        <div class="glass-container rounded-2xl overflow-hidden">
+
+            <!-- Header dengan Animasi Profil -->
+            <div class="medium-gray-gradient p-6 text-center relative overflow-hidden">
+                <!-- Floating particles -->
+                <div class="absolute top-4 left-1/4 w-2 h-2 bg-gray-600/30 rounded-full animate-bounce"
+                    style="animation-delay: 0.2s"></div>
+                <div class="absolute top-10 right-1/3 w-1.5 h-1.5 bg-gray-600/30 rounded-full animate-bounce"
+                    style="animation-delay: 0.5s"></div>
+                <div class="absolute bottom-8 left-1/3 w-1 h-1 bg-gray-600/30 rounded-full animate-bounce"
+                    style="animation-delay: 0.8s"></div>
+
+                <div class="relative z-10">
+                    <div class="flex justify-center mb-4">
+                        <div class="relative group">
+                            <!-- Profile image with animation -->
+                            <div class="relative">
+                                <!-- Perbaikan path gambar: -->
+                                <img src="img/WhatsApp Image 2025-12-26 at 06.40.59.jpeg" alt="Profile Picture yurryga"
+                                    class="profile-image w-24 h-24 rounded-full border-4 border-white object-cover shadow-lg transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+
+                                <!-- Animated rings -->
+                                <div
+                                    class="absolute inset-0 border-2 border-gray-400 rounded-full animate-ping opacity-0 group-hover:opacity-50">
+                                </div>
+                                <div class="absolute inset-0 border-2 border-gray-500 rounded-full animate-ping opacity-0 group-hover:opacity-50"
+                                    style="animation-delay: 0.5s"></div>
+
+                                <!-- Online status indicator -->
+                                <div
+                                    class="absolute bottom-0 right-0 bg-green-500 w-6 h-6 rounded-full border-2 border-white group-hover:scale-125 group-hover:animate-pulse transition-all duration-300">
+                                    <div class="absolute inset-1 bg-green-300 rounded-full animate-ping"></div>
+                                </div>
+                            </div>
+
+                            <!-- Hover effect overlay -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-gray-500/20 to-gray-600/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name with typing animation -->
+                    <h1
+                        class="header-text text-2xl font-bold text-gray-800 mb-2 transform transition-all duration-300 hover:scale-105 hover:text-gray-700 cursor-default">
+                        <span class="relative">
+                            yurryga
+                            <span
+                                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-700 group-hover:w-full transition-all duration-500"></span>
+                        </span>
+                    </h1>
+
+                    <!-- Tagline with fade in -->
+                    <div
+                        class="inline-flex items-center bg-gray-200/50 backdrop-blur-sm px-4 py-2 rounded-full mb-3 transform transition-all duration-300 hover:scale-105 hover:bg-gray-200/70">
+                        <i class="fas fa-rocket text-gray-600 mr-2 animate-bounce" style="animation-delay: 0.3s"></i>
+                        <span class="text-gray-700 text-sm font-medium">Digital Creator</span>
+                    </div>
+
+                    <!-- Description with staggered animation -->
+                    <div class="max-w-md mx-auto space-y-2">
+                        <p
+                            class="text-gray-700 text-sm leading-relaxed transform transition-all duration-500 hover:translate-y-[-2px]">
+                            <span class="font-semibold text-gray-800">Hallo semuanya!</span> Saya yurryga, sedang
+                            mengejar 1jt pertama di produk digital.
+                        </p>
+                        <p
+                            class="text-gray-700 text-sm leading-relaxed transform transition-all duration-500 delay-100 hover:translate-y-[-2px]">
+                            Mari kembangkan kreativitas kalian di Canva dan jual di platform digital.
+                            <span class="font-semibold text-gray-800">Semuanya bisa!</span>
+                        </p>
+                    </div>
+
+                    <!-- CTA with animation -->
+                    <div class="mt-4 flex items-center justify-center space-x-2">
+                        <div class="status-indicator"></div>
+                        <p class="text-gray-700 text-sm transform transition-all duration-300 hover:scale-105">
+                            Hubungi saya melalui link di bawah
+                        </p>
+                        <div class="status-indicator" style="animation-delay: 0.5s"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link Utama -->
+            <div class="container-padding p-6 space-y-4" id="links">
+                <!-- WhatsApp -->
+                <div onclick="openWhatsAppModal()"
+                    class="cursor-pointer active:scale-95 transition-transform duration-200">
+                    <div class="card-hover link-card p-4 text-white overflow-hidden group relative">
+                        <div class="flex items-center">
+                            <!-- Icon dengan animasi -->
+                            <div
+                                class="icon-container w-12 h-12 mr-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                                <i class="fab fa-whatsapp text-xl text-gray-100"></i>
+                            </div>
+
+                            <div class="flex-1 overflow-hidden">
+                                <div class="space-y-1">
+                                    <div class="flex items-center">
+                                        <h3
+                                            class="font-bold text-lg transform group-hover:translate-x-2 transition-transform duration-300">
+                                            WhatsApp</h3>
+                                        <span
+                                            class="ml-2 bg-gray-700/80 text-white text-xs font-bold px-2 py-1 rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                                            <span class="status-indicator"></span> Online
+                                        </span>
+                                    </div>
+                                    <p
+                                        class="text-sm opacity-90 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                                        Chat langsung dengan saya</p>
+                                </div>
+                            </div>
+
+                            <!-- Animated arrow -->
+                            <div
+                                class="transform group-hover:translate-x-2 group-hover:scale-125 transition-transform duration-300">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@yurr544" target="_blank"
+                    class="block active:scale-95 transition-transform duration-200">
+                    <div class="card-hover link-card p-4 text-white overflow-hidden group relative">
+                        <div class="flex items-center">
+                            <!-- Icon dengan animasi -->
+                            <div
+                                class="icon-container w-12 h-12 mr-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                                <i class="fab fa-tiktok text-xl text-gray-100"></i>
+                            </div>
+
+                            <div class="flex-1 overflow-hidden">
+                                <div class="space-y-1">
+                                    <h3
+                                        class="font-bold text-lg transform group-hover:translate-x-2 transition-transform duration-300">
+                                        TikTok</h3>
+                                    <p
+                                        class="text-sm opacity-90 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                                        Ikuti untuk konten menarik</p>
+                                </div>
+                            </div>
+
+                            <!-- Animated arrow -->
+                            <div
+                                class="transform group-hover:translate-x-2 group-hover:scale-125 transition-transform duration-300">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </div>
+
+                        <!-- Trending badge -->
+                        <div
+                            class="absolute top-2 right-2 bg-gray-700/80 text-white text-xs font-bold px-2 py-1 rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                            <i class="fas fa-trending-up mr-1"></i> Trend
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Lynk.id -->
+                <a href="https://lynk.id/yurryga" target="_blank"
+                    class="block active:scale-95 transition-transform duration-200">
+                    <div class="card-hover link-card p-4 text-white overflow-hidden group relative">
+                        <div class="flex items-center">
+                            <!-- Logo dengan animasi -->
+                            <div
+                                class="icon-container w-12 h-12 mr-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                                <img src="img/lynk_id_logo-removebg-preview.png" alt="Lynk.id Logo"
+                                    class="w-8 h-8 object-contain filter brightness-0 invert">
+                            </div>
+
+                            <div class="flex-1 overflow-hidden">
+                                <div class="space-y-1">
+                                    <h3
+                                        class="font-bold text-lg transform group-hover:translate-x-2 transition-transform duration-300">
+                                        Lynk.id</h3>
+                                    <p
+                                        class="text-sm opacity-90 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                                        Jual kreativitasmu di sini!</p>
+                                </div>
+                            </div>
+
+                            <!-- Animated arrow -->
+                            <div
+                                class="transform group-hover:translate-x-2 group-hover:scale-125 transition-transform duration-300">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </div>
+
+                        <!-- Hot badge -->
+                        <div
+                            class="absolute top-2 right-2 bg-gray-700/80 text-white text-xs font-bold px-2 py-1 rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                            <i class="fas fa-fire mr-1"></i> Hot
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Instagram -->
+<a href="https://www.instagram.com/yurryga?igsh=MWJhZHh3MWhheXpudg==" target="_blank" class="block active:scale-95 transition-transform duration-200">
+    <div class="card-hover link-card p-4 text-white overflow-hidden group relative">
+        <div class="flex items-center">
+            <!-- Logo dengan animasi -->
+            <div class="icon-container w-12 h-12 mr-4 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 flex items-center justify-center">
+                <i class="fab fa-instagram text-xl text-white"></i>
+            </div>
+
+            <div class="flex-1 overflow-hidden">
+                <div class="space-y-1">
+                    <h3 class="font-bold text-lg transform group-hover:translate-x-2 transition-transform duration-300">Instagram</h3>
+                    <p class="text-sm opacity-90 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">Follow untuk update terbaru</p>
+                </div>
+            </div>
+
+            <!-- Animated arrow -->
+            <div class="transform group-hover:translate-x-2 group-hover:scale-125 transition-transform duration-300">
+                <i class="fas fa-external-link-alt"></i>
+            </div>
+        </div>
+
+        <!-- Follower badge -->
+        <div class="absolute top-2 right-2 bg-gray-700/80 text-white text-xs font-bold px-2 py-1 rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300">
+            <i class="fas fa-user-plus mr-1"></i> Follow
+        </div>
+    </div>
+</a>
+            </div>
+
+            <div class="light-gray-gradient p-6 text-center border-t border-gray-300 relative overflow-hidden">
+                <!-- Floating dots -->
+                <div class="absolute top-3 left-1/4 w-1 h-1 bg-gray-500/30 rounded-full animate-pulse"></div>
+                <div class="absolute bottom-3 right-1/4 w-1.5 h-1.5 bg-gray-500/30 rounded-full animate-pulse"
+                    style="animation-delay: 0.5s"></div>
+
+                <div class="relative z-10">
+                    <!-- Copyright dengan animasi -->
+                    <div class="mb-4 transform transition-all duration-300 hover:scale-105">
+                        <p class="text-gray-600 text-sm inline-flex items-center">
+                            <i class="fas fa-copyright mr-2 text-gray-500 text-xs"></i>
+                            <span id="currentYear" class="font-semibold text-gray-700"></span>
+                            <span class="mx-2">•</span>
+                            <span class="text-gray-600">yurryga</span>
+                        </p>
+                        <p
+                            class="text-gray-500 text-sm mt-1 italic max-w-md mx-auto transform transition-all duration-500 hover:tracking-wide">
+                            "Semua orang bisa berkreasi di mana saja."
+                        </p>
+                    </div>
+
+                    <!-- Social Media Icons -->
+                    <div class="social-icons flex justify-center space-x-5 mb-4">
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/6283111319002" target="_blank"
+                            class="group relative transform transition-all duration-300 hover:scale-125">
+                            <div
+                                class="absolute -inset-2 bg-green-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="social-icon relative p-3 rounded-full bg-white border border-green-200 group-hover:bg-green-50 transform transition-all duration-300 group-hover:rotate-12">
+                                <i
+                                    class="fab fa-whatsapp text-lg text-green-600 group-hover:text-green-700 transform transition-transform duration-300 group-hover:scale-110"></i>
+                            </div>
+                            <!-- Tooltip -->
+                            <div
+                                class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                                WhatsApp
+                                <div
+                                    class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45">
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="https://tiktok.com/@yurr544" target="_blank"
+                            class="group relative transform transition-all duration-300 hover:scale-125">
+                            <div
+                                class="absolute -inset-2 bg-pink-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="social-icon relative p-3 rounded-full bg-white border border-gray-300 group-hover:bg-gray-50 transform transition-all duration-300 group-hover:rotate-12">
+                                <i
+                                    class="fab fa-tiktok text-lg text-gray-800 group-hover:text-black transform transition-transform duration-300 group-hover:scale-110"></i>
+                            </div>
+                            <!-- Tooltip -->
+                            <div
+                                class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                                TikTok
+                                <div
+                                    class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45">
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Link.id -->
+                        <a href="https://lynk.id/yurryga" target="_blank"
+                            class="group relative transform transition-all duration-300 hover:scale-125">
+                            <div
+                                class="absolute -inset-2 bg-green-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="social-icon relative p-3 rounded-full bg-white border border-green-200 group-hover:bg-green-50 transform transition-all duration-300 group-hover:rotate-12">
+                                <i
+                                    class="fas fa-link text-lg text-green-600 group-hover:text-green-700 transform transition-transform duration-300 group-hover:scale-110"></i>
+                            </div>
+                            <!-- Tooltip -->
+                            <div
+                                class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                                Lynk.id
+                                <div
+                                    class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45">
+                                </div>
+                            </div>
+                        </a>
+                        <!-- instragram -->
+                        <a href="https://www.instagram.com/yurryga?igsh=MWJhZHh3MWhheXpudg==" target="_blank"
+                            class="group relative transform transition-all duration-300 hover:scale-125">
+                            <div
+                                class="absolute -inset-2 bg-pink-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                            <div
+                                class="social-icon relative p-3 rounded-full bg-white border border-pink-200 group-hover:bg-pink-50 transform transition-all duration-300 group-hover:rotate-12">
+                                <i
+                                    class="fab fa-instagram text-lg text-pink-600 group-hover:text-pink-700 transform transition-transform duration-300 group-hover:scale-110"></i>
+                            </div>
+                            <!-- Tooltip -->
+                            <div
+                                class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                                Instagram
+                                <div
+                                    class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Motto dengan animasi -->
+                    <div
+                        class="inline-flex items-center bg-gradient-to-r from-gray-100 to-gray-200 px-4 py-2 rounded-full border border-gray-300 transform transition-all duration-500 hover:scale-105 hover:shadow-sm group">
+                        <i class="fas fa-lightbulb text-gray-600 mr-2 group-hover:animate-pulse"></i>
+                        <span class="text-gray-600 text-sm font-medium">Kreativitas tanpa batas</span>
+                        <i
+                            class="fas fa-arrow-right text-gray-500 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </div>
+
+                    <!-- Visitor counter -->
+                    <div class="mt-4 flex items-center justify-center space-x-2 text-gray-500 text-xs">
+                        <i class="fas fa-eye text-gray-500"></i>
+                        <span id="visitorCount" class="font-medium text-gray-600">0</span>
+                        <span class="text-gray-500">pengunjung</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal WhatsApp -->
+    <div id="whatsappModal" class="modal">
+        <div class="bg-white rounded-2xl w-11/12 max-w-md mx-auto p-6 modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Pilih Pesan WhatsApp</h3>
+                <button onclick="closeWhatsAppModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <p class="text-gray-600 mb-6">Pilih salah satu pesan di bawah untuk langsung chat di WhatsApp:</p>
+
+            <!-- Daftar Pesan Pilihan -->
+            <div class="space-y-3 mb-6">
+                <!-- Pesan 1 -->
+                <div onclick="sendWhatsApp('Halo, saya tertarik dengan layanan Anda. Boleh informasi lebih lanjut?')"
+                    class="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors">
+                    <div class="flex items-start">
+                        <div class="bg-gray-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-handshake text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Tanya Layanan</h4>
+                            <p class="text-sm text-gray-600 mt-1">Halo, saya tertarik dengan layanan Anda. Boleh
+                                informasi lebih lanjut?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pesan 2 -->
+                <div onclick="sendWhatsApp('Hai, saya ingin konsultasi tentang project. Apakah ada waktu untuk diskusi?')"
+                    class="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors">
+                    <div class="flex items-start">
+                        <div class="bg-gray-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-comments text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Konsultasi Project</h4>
+                            <p class="text-sm text-gray-600 mt-1">Hai, saya ingin konsultasi tentang project. Apakah ada
+                                waktu untuk diskusi?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pesan 3 -->
+                <div onclick="sendWhatsApp('Halo, apakah ada promo atau penawaran khusus saat ini?')"
+                    class="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors">
+                    <div class="flex items-start">
+                        <div class="bg-gray-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-percent text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Tanya Promo</h4>
+                            <p class="text-sm text-gray-600 mt-1">Halo, apakah ada promo atau penawaran khusus saat ini?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pesan 4 -->
+                <div onclick="sendWhatsApp('Hai, saya ingin bertanya tentang harga paket yang tersedia. Bisa minta detailnya?')"
+                    class="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 cursor-pointer transition-colors">
+                    <div class="flex items-start">
+                        <div class="bg-gray-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-tag text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Tanya Harga</h4>
+                            <p class="text-sm text-gray-600 mt-1">Hai, saya ingin bertanya tentang harga paket yang
+                                tersedia. Bisa minta detailnya?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Message -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">Atau tulis pesan Anda sendiri:</label>
+                <textarea id="customMessage" placeholder="Ketik pesan Anda di sini..."
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                    rows="3">Halo, saya ingin menghubungi Anda</textarea>
+                <button onclick="sendCustomWhatsApp()"
+                    class="mt-3 w-full gray-gradient text-white font-medium py-3 rounded-lg hover:opacity-90 transition-all">
+                    <i class="fab fa-whatsapp mr-2"></i> Kirim Pesan Kustom
+                </button>
+            </div>
+
+            <div class="text-center text-gray-500 text-sm">
+                <p>Nomor WhatsApp: <span class="font-medium">+62 831-1131-9002</span></p>
+                <p class="mt-1">Pesan akan dikirim ke nomor ini</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi WhatsApp
+        const whatsappNumber = "6283111319002";
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.id = 'particles-container';
+            particlesContainer.style.position = 'fixed';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.pointerEvents = 'none';
+            particlesContainer.style.zIndex = '-1';
+            document.body.appendChild(particlesContainer);
+
+            const particleCount = 25; // Tambah jumlah partikel
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                // Random size between 3-8px (lebih besar)
+                const size = Math.random() * 5 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                // Random animation - LEBIH CEPAT
+                const duration = Math.random() * 8 + 4; // 4-12 detik (3x lebih cepat)
+                const delay = Math.random() * 2; // Delay lebih pendek
+                particle.style.animation = `float ${duration}s infinite linear ${delay}s`;
+
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.4 + 0.2; // Lebih terang
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Modal Functions
+        function openWhatsAppModal() {
+            document.getElementById('whatsappModal').style.display = 'flex';
+            // Animasi klik pada card
+            const waCard = document.querySelector('[onclick="openWhatsAppModal()"] .card-hover');
+            if (waCard) {
+                waCard.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    waCard.style.transform = '';
+                }, 200);
+            }
+        }
+
+        function closeWhatsAppModal() {
+            document.getElementById('whatsappModal').style.display = 'none';
+        }
+
+        // Fungsi untuk mengirim pesan WhatsApp
+        function sendWhatsApp(message) {
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
+            // Buat URL WhatsApp
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // Buka WhatsApp di tab baru
+            window.open(whatsappURL, '_blank');
+
+            // Tutup modal
+            closeWhatsAppModal();
+
+            // Tampilkan notifikasi
+            showNotification(`Mengirim pesan: "${message.substring(0, 30)}..."`);
+        }
+
+        // Fungsi untuk mengirim pesan kustom
+        function sendCustomWhatsApp() {
+            const customMessage = document.getElementById('customMessage').value;
+            if (customMessage.trim() === "") {
+                alert("Silakan tulis pesan terlebih dahulu");
+                return;
+            }
+            sendWhatsApp(customMessage);
+        }
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            // Buat elemen notifikasi
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-gray-700 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-fade-in';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fab fa-whatsapp mr-3 text-xl"></i>
+                    <div>
+                        <p class="font-medium">Membuka WhatsApp</p>
+                        <p class="text-sm opacity-90">${message}</p>
+                    </div>
+                </div>
+            `;
+
+            // Tambahkan ke body
+            document.body.appendChild(notification);
+
+            // Hapus setelah 3 detik
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-10px)';
+                notification.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Tutup modal saat klik di luar konten
+        document.getElementById('whatsappModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeWhatsAppModal();
+            }
+        });
+
+        // Fungsi untuk menampilkan tahun otomatis
+        function updateCurrentYear() {
+            const currentYear = new Date().getFullYear();
+            const yearElement = document.getElementById('currentYear');
+            if (yearElement) {
+                yearElement.textContent = currentYear;
+            }
+        }
+
+        // Visitor counter
+        function updateVisitorCount() {
+            let count = localStorage.getItem('visitorCount') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('visitorCount', count);
+
+            const visitorElement = document.getElementById('visitorCount');
+            if (visitorElement) {
+                // Format number dengan koma
+                visitorElement.textContent = count.toLocaleString();
+            }
+        }
+
+        // Animasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCurrentYear();
+            updateVisitorCount();
+            createParticles();
+
+            const cards = document.querySelectorAll('.card-hover');
+
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200 + 300);
+            });
+        });
+    </script>
+</body>
+
+</html>
